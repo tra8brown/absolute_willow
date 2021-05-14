@@ -9,25 +9,13 @@ if (numberCharacters > 128) {
     numberCharacters = 128;
 }
 
-var specialCharacters = window.confirm("click OK to confirm including special characters.");
-// console.log()
-// if (specialCharacters === true) {
+var wantsSpecialCharacters = window.confirm("click OK to confirm including special characters.");
 
+var wantsNumericCharacters = window.confirm("click OK to confirm including numeric characters.");
 
-var numericCharacters = window.confirm("click OK to confirm including numeric characters.");
-// console.log()
-// if (numericCharacters === true) {
+var wantsLowerCase = window.confirm("click OK to confirm including lower case characters.");
 
-
-var lowerCase = window.confirm("click OK to confirm including lower case characters.");
-// console.log()
-// if (lowerCase === true) {
-
-
-var upperCase = window.confirm("click OK to confirm including upper case characters.");
-// console.log()
-// if (upperCase === true) {
-
+var wantsUpperCase = window.confirm("click OK to confirm including upper case characters.");
 
 //ARRRAYS
 var specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
@@ -42,29 +30,56 @@ var generateBtn = document.querySelector("#generate");
 function generatePassword() {
     var password = "";
 
-    var i;
-    for (i = 0; i < numberCharacters; i++) {
-        password += getRandomSpecialCharacter()
+    // Start of pw generations
+    for (var i = 0; i < numberCharacters; i++) {
+        if (wantsSpecialCharacters === true) {
+            password += getRandomSpecialCharacter();
+            continue;
+        } else if (wantsNumericCharacters === true) {
+            password += getNumericCharacters();
+            continue;
+        } else if (wantsLowerCase === true) {
+            password += getLowerCase();
+            continue;
+        } else if (wantsUpperCase === true) {
+            password += getUpperCase();
+            continue;
+        }
     }
 
-    return password;
+    // End of pw generation
 
+    // Return fully generated password
+    return password;
 }
 
 // Write password to the #password input
+function getRandomSpecialCharacter() {
+    var index = Math.floor(Math.random() * specialCharacters.length - 1) + 1;
+    return specialCharacters[index];
+}
+
+function getNumericCharacters() {
+    var index = Math.floor(Math.random() * numericCharacters.length - 1) + 1;
+    return numericCharacters[index];
+}
+
+function getLowerCase() {
+    var index = Math.floor(Math.random() * lowerCase.length - 1) + 1;
+    return lowerCase[index];
+}
+
+function getUpperCase() {
+    var index = Math.floor(Math.random() * upperCase.length - 1) + 1;
+    return upperCase[index];
+}
+
 function writePassword() {
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
 
     passwordText.value = password;
 }
-
-function getRandomSpecialCharacter() {
-    var index = Math.floor(Math.random() * specialCharacters.length - 1) + 1;
-    return specialCharacters[index];
-}
-
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
