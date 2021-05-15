@@ -3,4 +3,4 @@
 ###Updated the repository with a screenshot image of the Password Generator.
 _https://github.com/tra8brown/absolute_willow_
 _https://tra8brown.github.io/absolute_willow/_
-![Screenshot](C:\Users\TraceeBrown\Desktop\School\absolute_willow)
+![Screenshot](School/absolute_willow)
