@@ -1,6 +1,6 @@
 // Assignment code here
 // WINDOW PROMPTS
-var numberCharacters = parseInt(window.prompt("how many characters would you like your password to contain?"));
+var numberCharacters = parseInt(prompt("how many characters would you like your password to contain?"));
 if (numberCharacters < 8) {
     numberCharacters = 8;
 }
@@ -9,20 +9,32 @@ if (numberCharacters > 128) {
     numberCharacters = 128;
 }
 
-var wantsSpecialCharacters = window.confirm("click OK to confirm including special characters.");
-
-var wantsNumericCharacters = window.confirm("click OK to confirm including numeric characters.");
-
-var wantsLowerCase = window.confirm("click OK to confirm including lower case characters.");
-
-var wantsUpperCase = window.confirm("click OK to confirm including upper case characters.");
-
-//ARRRAYS
+var wantedCharacters = [];
+var wantsSpecialCharacters = confirm("click OK to confirm including special characters.");
+if (wantsSpecialCharacters) {
+    wantedCharacters.push("special");
+}
+console.log(wantsSpecialCharacters)
+var wantsNumericCharacters = confirm("click OK to confirm including numeric characters.");
+if (wantsNumericCharacters) {
+    wantedCharacters.push("numeric")
+}
+console.log(wantsNumericCharacters)
+var wantsLowerCase = confirm("click OK to confirm including lower case characters.");
+if (wantsLowerCase) {
+    wantedCharacters.push("lower")
+}
+console.log(wantsLowerCase)
+var wantsUpperCase = confirm("click OK to confirm including upper case characters.");
+if (wantsUpperCase) {
+    wantedCharacters.push("upper")
+}
+console.log(wantsUpperCase)
+    //ARRRAYS
 var specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')'];
 var numericCharacters = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 var lowerCase = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 var upperCase = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -30,27 +42,33 @@ var generateBtn = document.querySelector("#generate");
 function generatePassword() {
     var password = "";
 
-    // Start of pw generations
+    // Start of pw combination generation
     for (var i = 0; i < numberCharacters; i++) {
-        if (wantsSpecialCharacters === true) {
-            password += getRandomSpecialCharacter();
-            continue;
-        } else if (wantsNumericCharacters === true) {
-            password += getNumericCharacters();
-            continue;
-        } else if (wantsLowerCase === true) {
-            password += getLowerCase();
-            continue;
-        } else if (wantsUpperCase === true) {
-            password += getUpperCase();
-            continue;
-        }
+        password += randomizer();
     }
 
-    // End of pw generation
+    // End of pw combination generation
 
-    // Return fully generated password
+    console.log(password.length)
+        // Return fully generated password
     return password;
+}
+
+//character randomizer
+function randomizer() {
+    var index = Math.floor(Math.random() * wantedCharacters.length - 1) + 1;
+    var operation = wantedCharacters[index];
+    if (operation == "special") {
+        return getRandomSpecialCharacter();
+    } else if (operation == "numeric") {
+        return getNumericCharacters();
+    } else if (operation == "upper") {
+        return getUpperCase();
+    } else if (operation == "lower") {
+        return getLowerCase();
+    } else {
+        return "";
+    }
 }
 
 // Write password to the #password input
